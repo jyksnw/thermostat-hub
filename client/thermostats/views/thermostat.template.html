@@ -1,0 +1,41 @@
+<template name="thermostats">
+    <div class="thermostats row">
+        <ul class="list-group">
+            {{#each thermostats}}
+                <li class="list-unstyled list-group-item">
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-8">
+                            <h2 class="thermostat-name"><a href="#">{{name}}</a></h2>
+
+                            <div class="thermostat-item">
+                                <div class="thermostat-value">{{currentTemperature}}</div>
+                                <div class="thermostat-label">Current</div>
+                            </div>
+                            <div class="thermostat-item">
+                                <div class="thermostat-value">{{setTemperature}}</div>
+                                <div class="thermostat-label">Set</div>
+                            </div>
+                            <div class="thermostat-item">
+                                {{#if isAlarmOn alarmState }}
+                                    <div class="thermostat-value alarm-on"><i class="fa fa-exclamation-triangle"></i>
+                                    </div>
+                                {{else}}
+                                    <div class="thermostat-value alarm-off"><i class="fa fa-check-square"></i></div>
+                                {{/if}}
+                                <div class="thermostat-label">Status</div>
+                            </div>
+
+                            <span class="pull-right">
+                                <a class="btn btn-default btn-sm thermostat-settings" href="#">
+                                    <i class="fa fa-cog"></i> Settings</a>
+                                <a class="btn btn-danger remove-thermostat" href="#">
+                                    <i class="fa fa-trash-o fa-lg"></i> Delete</a>
+                            </span>
+
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
