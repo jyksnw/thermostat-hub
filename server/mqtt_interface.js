@@ -6,6 +6,10 @@
 var client = mqtt.connect(Meteor.settings.mqtt_options);
 
 client.on('connect', function () {
+    var connectionId = Math.floor(Math.random()*90000) + 10000;
+
+    client.publish('presence/thermostat-hub', connectionId);
+
     client.subscribe('presence/thermostat');
     resubscribeToThermostats();
 });
