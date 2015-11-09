@@ -32,6 +32,9 @@ client.on('message', function (topic, message) {
     }
 });
 
+/**
+ * Subscribes to the thermostat
+ */
 var subscribeToThermostat = Meteor.bindEnvironment(function (deviceId) {
     if (deviceId) {
         var thermostatPath = 'thermostat/' + deviceId;
@@ -64,6 +67,9 @@ var subscribeToThermostat = Meteor.bindEnvironment(function (deviceId) {
     }
 });
 
+/**
+ * Resubscribes to all known thermostat devices
+ */
 var resubscribeToThermostats = Meteor.bindEnvironment(function() {
     var thermostats = ThermostatCollection.find();
 
@@ -74,6 +80,9 @@ var resubscribeToThermostats = Meteor.bindEnvironment(function() {
     });
 });
 
+/**
+ * Process the thermostats alarm state
+ */
 var processThermostatAlarm = Meteor.bindEnvironment(function (topic, data) {
     var deviceId = topic.extractString('thermostat/', '/alarm');
 
@@ -107,6 +116,9 @@ var processThermostatAlarm = Meteor.bindEnvironment(function (topic, data) {
     }
 });
 
+/**
+ * Records the thermostats temperature threshold
+ */
 var recordThermostatTemperatureThreshold = Meteor.bindEnvironment(function (topic, data) {
     var deviceId = topic.extractString('thermostat/', '/setTemp');
 
@@ -131,6 +143,9 @@ var recordThermostatTemperatureThreshold = Meteor.bindEnvironment(function (topi
     }
 });
 
+/**
+ * Records the thermostats current temperature
+ */
 var recordThermostatCurrentTemperature = Meteor.bindEnvironment(function (topic, data) {
     var deviceId = topic.extractString('thermostat/', '/currentTemp');
 
@@ -163,6 +178,10 @@ var recordThermostatCurrentTemperature = Meteor.bindEnvironment(function (topic,
 });
 
 Meteor.methods({
+    /**
+     * Unsubscribes from the provided thermostat id and removes the thermostat from the system.
+     * @param _id - The thermostat id
+     */
     'unsubscribeFromThermostat': function (_id) {
         console.log('Unsubscribing from thermostat ' + _id);
         if (_id) {
@@ -186,6 +205,11 @@ Meteor.methods({
             }
         }
     },
+    /**
+     * Updates the thermostats set temperature threshold value
+     * @param _id - The thermostat id
+     * @param setVal - The new set temperature value
+     */
     'updateSetTemperatureThreshold': function (_id, setVal) {
         if (_id) {
             var thermostat = ThermostatCollection.findOne({_id: _id});

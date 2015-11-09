@@ -20,10 +20,8 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 npm-container
 spectrum:mqtt
-momentjs:moment
 check
 less
 twbs:bootstrap
 fortawesome:fontawesome
-chart:chart
 peppelg:bootstrap-3-modal

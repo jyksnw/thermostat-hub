@@ -1,5 +1,5 @@
 /**
- * Created by jasonsnow on 10/24/15.
+ * Created by Jason Snow on 10/24/15.
  */
 
 /**
@@ -19,7 +19,11 @@ Meteor.publish('thermostat', function (_id) {
 });
 
 Meteor.methods({
-   'updateThermostat' : function(thermostat) {
+    /**
+     * Updates the thermostats name
+     * @param thermostat - the thermostat object to update
+     */
+    'updateThermostat' : function(thermostat) {
        if (thermostat) {
            ThermostatCollection.update(thermostat._id, {
                $set: {

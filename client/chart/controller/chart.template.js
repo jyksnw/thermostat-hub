@@ -1,7 +1,8 @@
 /**
- * Created by jasonsnow on 10/25/15.
+ * Created by Jason Snow on 10/25/15.
  */
 
+// Setup a session variable called lastPoll
 Session.set('lastPoll', null);
 Meteor.subscribe('temperatures');
 
@@ -32,11 +33,15 @@ Template.chart.rendered = function () {
     });
 
     var yVal = 0;
-    var updateInterval = 500;
-    var dataLength = 500;
+    var updateInterval = 500;   // The time(ms) to wait before updating the chart
+    var dataLength = 500;       // Total number of data points to show on the chart
 
+    /**
+     * Updates the chart with new data collected since last pollInterval
+     */
     var updateChart = function () {
         var tempData = null;
+        // Get the last poll time
         var lastPoll = Session.get('lastPoll');
 
 
@@ -47,6 +52,7 @@ Template.chart.rendered = function () {
         } else {
             tempData = TemperatureCollection.find({
                 receivedAt: {
+                    // Only request for new documents received afer the last poll time
                     $gt: lastPoll
                 }
             }, {
@@ -57,6 +63,7 @@ Template.chart.rendered = function () {
             }).fetch();
         }
 
+        // Set any new data points on the chart by iterating over the new data set.
         tempData.forEach(function (data) {
             yVal = Math.round(data.temperatureValue);
             temperatures.push({

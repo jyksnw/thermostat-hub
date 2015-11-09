@@ -1,6 +1,6 @@
 {
   "mqtt_options": {
-    "host": "thermostat-hub",
+    "host": "150.156.218.119",
     "port": 1883,
     "protocolId": "MQIsdp",
     "protocolVersion": 3
